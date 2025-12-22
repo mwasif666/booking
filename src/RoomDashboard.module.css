@@ -1,0 +1,332 @@
+/* RoomDashboard.module.css */
+
+:root {
+  --green: #1f9b4a; /* main green */
+  --green-dark: #197f3b;
+  --muted: #e9ecef;
+}
+
+/* body {
+  overflow: hidden;
+} */
+.container {
+  background: #f8c403; /* same yellow */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  font-family: sans-serif;
+}
+
+.backButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 28px;
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.heading {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: black;
+  font-weight: 600;
+  font-family: "Archivo", sans-serif;
+}
+
+.pinDots {
+  display: flex;
+  gap: 15px;
+}
+
+.dot {
+  font-size: 4rem;
+  font-weight: bold;
+  height: 90px;
+}
+
+.keypad {
+  width: 230px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.key,
+.iconKey {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid black;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: "Archivo", sans-serif;
+}
+
+.iconKey {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.wrapper {
+  min-height: 90vh;
+  background: var(--green);
+  color: #fff;
+  padding: 18px 24px;
+  box-sizing: border-box;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* LEFT CARD */
+.leftCard {
+  background: transparent;
+  padding: 26px;
+  border-radius: 6px;
+  color: #ffffff;
+}
+
+.brand {
+  opacity: 0.85;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.title {
+  font-size: 28px;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+/* pills */
+.pill {
+  background: white;
+  color: black;
+  padding: 8px 20px;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Current time box top-right */
+.currentTimeBox {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 14px 18px;
+  border-radius: 10px;
+  text-align: center;
+  min-width: 210px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.smallText {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.bigTime {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.tinyDate {
+  font-size: 11px;
+  margin-top: 6px;
+  opacity: 0.85;
+}
+
+.sep {
+  border: 0;
+  border-top: 2px solid rgba(255, 255, 255, 0.8);
+  margin: 30px 0;
+  width: 73%;
+}
+
+/* big status word */
+.statusBig {
+  font-size: 110px;
+  font-weight: 800;
+  line-height: 0.9;
+
+  color: #fff;
+  letter-spacing: -4px;
+  margin: 0;
+}
+
+/* For next line and countdown */
+.forNext {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+}
+
+.countdown {
+  font-weight: 700;
+  font-size: 35px;
+}
+
+.progressBar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  /* overflow: hidden; */
+  width: 30%;
+  transition: width 0.5s linear; /* smooth shrinking */
+}
+
+.progressFill {
+  height: 12px;
+  background: rgba(255, 255, 255, 1);
+  width: 20%;
+  border-radius: 30px;
+  transition: width 0.6s linear;
+  position: relative;
+  top: -2px;
+}
+
+/* iocn plus text */
+.iconplustext .icon {
+  margin-right: 20px;
+}
+
+.iconplustext span,
+.iconplustext .icon {
+  font-size: 25px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+/* book area on left bottom */
+.bookBlock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.bookButton {
+  background: #e9ecef;
+  color: var(--green);
+  padding: 5px 8px;
+  border-radius: 12px;
+  padding-left: 20px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 700;
+  font-size: 25px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.06) inset;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.bookButton:hover {
+  transform: translateY(-2px);
+}
+
+.arrow {
+  background: var(--green);
+  color: #fff;
+  width: 70px;
+  height: 70px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  margin-left: 10px;
+}
+
+/* RIGHT COLUMN */
+.rightCol {
+  padding: 10px 0;
+  color: #fff;
+}
+
+.sideHeading {
+  font-weight: 700;
+  font-size: 16px;
+  opacity: 0.95;
+}
+
+.sideDate {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+/* small booking card */
+.smallCard {
+  background: rgba(255, 255, 255, 0.92);
+  color: #222;
+  border-radius: 12px;
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  margin-top: 12px;
+  align-items: center;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.03);
+}
+
+.thumb {
+  width: 76px;
+  height: 60px;
+  border-radius: 8px;
+  background-image: linear-gradient(135deg, #ddd, #cfcfcf);
+  flex-shrink: 0;
+}
+
+.cardContent {
+  flex: 1;
+}
+
+.cardTitle {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.cardTime {
+  font-weight: 800;
+  font-size: 13px;
+  margin-top: 8px;
+  display: flex;
+  gap: 30px;
+}
+
+/* small screen adjustments */
+@media (max-width: 991px) {
+  .statusBig {
+    font-size: 64px;
+  }
+  .currentTimeBox {
+    min-width: 170px;
+    padding: 10px;
+  }
+  .bookButton {
+    padding: 12px 18px;
+    font-size: 16px;
+  }
+}
+
+/* landscape tablet tuning (approx 1024x768) */
+@media (min-width: 900px) and (max-width: 1200px) {
+  .title {
+    font-size: 34px;
+  }
+  .statusBig {
+    font-size: 96px;
+  }
+  .currentTimeBox {
+    min-width: 200px;
+  }
+}
+/* right slide */
+.heightScroll {
+  height: 560px;
+  overflow-y: auto;
+}

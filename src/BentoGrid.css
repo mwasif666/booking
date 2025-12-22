@@ -1,0 +1,116 @@
+.bento-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+  background: #0c161c;
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+.bento-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #111a21;
+  padding: 1.5rem;
+  min-height: 260px;
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  perspective: 800px;
+}
+
+.bento-card .bento-content {
+  position: relative;
+  z-index: 2;
+}
+
+.bento-card .icon {
+  width: 36px;
+  height: 36px;
+  color: #0cf;
+  margin-bottom: 10px;
+}
+
+.bento-card h4 {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.bento-card p {
+  color: #d4d4d4;
+  font-size: 0.9rem;
+}
+
+.bento-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.file-box {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  margin: 6px;
+  animation: float 8s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.marquee {
+  position: absolute;
+  top: 15%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.marquee-inner {
+  display: flex;
+  gap: 12px;
+  animation: scroll 25s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Colored bubbles */
+.bubble {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  opacity: 0.25;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(30px);
+}
+
+.bg-yellow {
+  background: #ffcc33;
+}
+
+.bg-blue {
+  background: #33aaff;
+}
+
+.bg-green {
+  background: #33ff88;
+}

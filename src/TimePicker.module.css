@@ -1,0 +1,144 @@
+.fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background: #3f6ae1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.topBar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.backArrow {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 22px;
+  user-select: none;
+}
+
+.stage {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.title {
+  position: absolute;
+  top: 86px;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 16px;
+  letter-spacing: 0.2px;
+}
+
+.cogsRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 110px;
+}
+
+.cogGroup {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.endFaded {
+  opacity: 0.28;
+}
+
+/* selection window pixel locked */
+.selectionWindow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 96px;
+  width: calc(100% - 120px);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.selectionText {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 18px;
+  white-space: nowrap;
+}
+
+.selectedValue {
+  font-size: 48px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.arrow {
+  font-size: 48px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+/* cog */
+.cog {
+  width: 90px;
+  height: calc(46px * 7);
+  position: relative;
+  touch-action: none; /* needed for pointer drag */
+  user-select: none;
+}
+
+.cogInner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.cogItem {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 46px;
+  line-height: 46px; /* no jitter */
+  text-align: center;
+
+  font-size: 32px; /* non-selected base */
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.95);
+
+  will-change: transform, opacity;
+}
+
+.cogHit {
+  position: absolute;
+  inset: 0;
+}
+
+@media (max-width: 900px) {
+  .cogsRow {
+    gap: 60px;
+  }
+  .cogGroup {
+    gap: 28px;
+  }
+  .selectionWindow {
+    width: calc(100% - 40px);
+  }
+  .selectedValue,
+  .arrow {
+    font-size: 34px;
+  }
+}

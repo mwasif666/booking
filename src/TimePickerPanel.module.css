@@ -1,0 +1,153 @@
+.wrap {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  color: #fff;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.topTitle {
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  opacity: 0.95;
+  margin-top: 10px;
+  margin-bottom: 22px;
+}
+
+.pickerArea {
+  position: relative;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 10px 0 10px;
+}
+
+.wheelsRow {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+}
+
+.group {
+  display: grid;
+  grid-template-columns: 96px 96px;
+  gap: 18px;
+  align-items: center;
+}
+
+.endGhost {
+  opacity: 0.55;
+}
+
+.periodCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.periodWheel {
+  width: 86px;
+}
+
+.wheel {
+  position: relative;
+  width: 96px;
+  height: calc(46px * 7);
+  border-radius: 10px;
+}
+
+.scroller {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: auto; /* GSAP handles smooth */
+}
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 0.3px;
+
+  color: rgba(255, 255, 255, 0.35);
+  transform: scale(0.95);
+  transition: transform 160ms ease, opacity 160ms ease, color 160ms ease;
+  will-change: transform;
+}
+
+/* ✅ IMPORTANT: do NOT change font-size/margin here (breaks wheel).
+   Use scale to get big number like image. */
+.itemActive {
+  color: rgba(255, 255, 255, 1);
+  transform: scale(1.25);
+  font-weight: 800;
+}
+
+.itemEmpty {
+  opacity: 0;
+}
+
+.fadeTop,
+.fadeBottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fadeTop {
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(63, 111, 224, 1) 0%,
+    rgba(63, 111, 224, 0.7) 35%,
+    rgba(63, 111, 224, 0) 100%
+  );
+}
+
+.fadeBottom {
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(63, 111, 224, 1) 0%,
+    rgba(63, 111, 224, 0.7) 35%,
+    rgba(63, 111, 224, 0) 100%
+  );
+}
+
+.centerMarker {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: calc(50% - 23px);
+  height: 46px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 991px) {
+  .wheelsRow {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .endGhost {
+    display: none;
+  }
+}
