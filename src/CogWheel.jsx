@@ -6,21 +6,40 @@ const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const mod = (n, m) => ((n % m) + m) % m;
 
 /**
- * Fade/depth formula ONLY:
- * opacity = clamp(1 - distance*0.22, 0.12, 1)
- * scale   = clamp(1 - distance*0.05, 0.85, 1)
- * distance is fractional while moving.
+ * Improved depth curve:
+ * - Near items: readable
+ * - Far items: fade out nicely
+ * - Center: bigger + crisp
+ *
+ * IMPORTANT:
+ * y = (index - activeFloat) * stepPx  (keep this)
  */
 function styleForIndex(rawIndex, activeFloat, stepPx) {
-  const distance = Math.abs(rawIndex - activeFloat);
+  const dist = Math.abs(rawIndex - activeFloat); // fractional while moving
+  // const y = (rawIndex - activeFloat) * stepPx;
+  const EXTRA_GAP = 70; // jitna gap chahiye
+  const y = (rawIndex - activeFloat) * (stepPx + EXTRA_GAP);
 
-  const opacity = clamp(1 - distance * 0.22, 0.12, 1);
-  const scale = clamp(1 - distance * 0.05, 0.85, 1);
+  // Clamp distance so very far items behave same
+  const d = Math.min(dist, 4);
 
-  // Position law (MANDATORY):
-  // y = (index - activeFloat) * STEP_HEIGHT
-  const y = (rawIndex - activeFloat) * stepPx;
+  // ✅ Better curve (more noticeable than your 0.05 scale)
+  // 0: 1.00
+  // 1: 0.92
+  // 2: 0.84
+  // 3: 0.78
+  // 4+: 0.74
+  const scale = clamp(1 - d * 0.08, 0.74, 1);
 
+  // ✅ Opacity curve (clean fade)
+  // 0: 0.65 (because active is shown in SelLayer, bg should not overpower)
+  // 1: 0.40
+  // 2: 0.22
+  // 3: 0.12
+  // 4+: 0.08
+  const opacity = clamp(0.65 - d * 0.18, 0.08, 0.65);
+
+  // Optional: slightly blur far text via CSS class if you want (not required)
   return {
     transform: `translate3d(0, ${y}px, 0) scale(${scale})`,
     opacity,
@@ -30,16 +49,15 @@ function styleForIndex(rawIndex, activeFloat, stepPx) {
 /**
  * CogWheel
  * - Background layer renders ±6 values
- * - Selection layer renders ONLY active value (no transforms)
- * - No native scrolling, no flowing text
+ * - Selection layer renders ONLY active value (centered, crisp)
  */
 export default function CogWheel({
   values,
   valueIndex,
   onCommit,
   ariaLabel,
-  stepPx = 56, // MANDATORY
-  snapMs = 180, // MANDATORY
+  stepPx = 56,
+  snapMs = 180,
   onHaptic,
 }) {
   const steps = values.length;
@@ -52,7 +70,7 @@ export default function CogWheel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phys.activeIndex]);
 
-  const RADIUS = 6; // MANDATORY ±6
+  const RADIUS = 6;
   const nearby = useMemo(() => {
     const base = Math.round(phys.activeFloat);
     const arr = [];
@@ -68,6 +86,7 @@ export default function CogWheel({
       onPointerDown={phys.onPointerDown}
       onWheel={phys.onWheel}
       aria-label={ariaLabel}
+      role="listbox"
     >
       {/* Background layer */}
       <div className={styles.cogBgLayer} aria-hidden="true">
@@ -85,7 +104,7 @@ export default function CogWheel({
         })}
       </div>
 
-      {/* Selection layer (ONLY active, centered, no transforms) */}
+      {/* Selection layer */}
       <div className={styles.cogSelLayer} aria-hidden="true">
         <div className={styles.cogSelText}>{values[activeInt]}</div>
       </div>

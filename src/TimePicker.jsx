@@ -15,16 +15,16 @@ export default function TimePicker() {
   );
   const ampm = useMemo(() => ["AM", "PM"], []);
 
-  // Independent cogs (no inference)
-  const [sH, setSH] = useState(1); // "02"
+  // Start
+  const [sH, setSH] = useState(1);
   const [sM, setSM] = useState(35);
   const [sP, setSP] = useState(0);
 
-  const [eH, setEH] = useState(2); // "03"
+  // End
+  const [eH, setEH] = useState(2);
   const [eM, setEM] = useState(35);
   const [eP, setEP] = useState(0);
 
-  // Haptic stub
   const haptic = () => {
     // navigator.vibrate?.(5);
   };
@@ -34,6 +34,11 @@ export default function TimePicker() {
 
   return (
     <div className={styles.fullscreen}>
+      {/* Optional top bar (arrow) */}
+      <div className={styles.topBar}>
+        <div className={styles.backArrow}>←</div>
+      </div>
+
       <div className={styles.stage}>
         <div className={styles.title}>Choose a Time</div>
 

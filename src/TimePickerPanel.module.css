@@ -1,111 +1,176 @@
-.wrap {
-  width: 100%;
-  max-width: 980px;
-  margin: 0 auto;
+/* ✅ kill page scroll from this screen */
+.fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background: #3f6ae1;
+  overflow: hidden;            /* ✅ main fix */
+  display: grid;
+  place-items: center;
   color: #fff;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-.topTitle {
-  text-align: center;
-  font-size: 16px;
-  letter-spacing: 0.2px;
-  opacity: 0.95;
-  margin-top: 10px;
-  margin-bottom: 22px;
-}
-
-.pickerArea {
-  position: relative;
+.stage {
   width: 100%;
+  height: 100%;
+  position: relative;
   display: grid;
   place-items: center;
-  padding: 10px 0 10px;
+  padding: 84px 24px 46px;
+  box-sizing: border-box;
 }
 
+.topTitle {
+  position: absolute;
+  top: 92px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;            /* ✅ bigger title */
+  font-weight: 600;
+  opacity: 0.95;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+/* ✅ tight center layout like reference */
+.centerWrap {
+  position: relative;
+  width: min(980px, calc(100vw - 64px));
+  height: 560px;              /* ✅ fixed stage height (no scroll) */
+  display: grid;
+  place-items: center;
+}
+
+/* two blocks: start group + end group */
 .wheelsRow {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  gap: 32px;
-  align-items: center;
-  justify-content: center;
-}
-
-.group {
-  display: grid;
-  grid-template-columns: 96px 96px;
-  gap: 18px;
-  align-items: center;
-}
-
-.endGhost {
-  opacity: 0.55;
-}
-
-.periodCol {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 80px;
+}
+
+/* start group includes 3 wheels (H, M, AM/PM) */
+.group {
+  display: grid;
+  grid-template-columns: 110px 110px 96px;  /* ✅ bigger widths */
+  gap: 22px;
+  align-items: center;
+}
+
+/* end preview group (ghost) */
+.groupGhost {
+  display: grid;
+  grid-template-columns: 110px 110px 96px;
+  gap: 22px;
+  align-items: center;
+  opacity: 0.65;
 }
 
 .periodWheel {
-  width: 86px;
+  width: 96px;
 }
 
+/* ✅ selection bar bigger & clear */
+.selectionWindow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 120px;
+  width: 100%;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.selectionText {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 18px;
+  white-space: nowrap;
+}
+
+.selectedValue {
+  font-size: 62px;            /* ✅ BIG */
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  line-height: 1;
+}
+
+.arrow {
+  font-size: 62px;
+  font-weight: 800;
+  opacity: 0.92;
+  transform: translateY(-2px);
+}
+
+/* wheel box */
 .wheel {
   position: relative;
-  width: 96px;
-  height: calc(46px * 7);
-  border-radius: 10px;
+  width: 110px;               /* ✅ bigger */
+  height: calc(56px * 7);     /* ✅ uses ITEM_H=56 */
+  border-radius: 12px;
 }
 
+.wheelGhost .item {
+  color: rgba(202, 17, 17, 0.26);
+}
+.wheelGhost .itemActive {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* scroller */
 .scroller {
   height: 100%;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
   scroll-snap-type: y mandatory;
-  scroll-behavior: auto; /* GSAP handles smooth */
+  scroll-behavior: auto;
 }
 .scroller::-webkit-scrollbar {
   display: none;
 }
 
+/* items */
 .item {
-  height: 46px;
+  height: 56px;               /* ✅ must match ITEM_H */
   display: flex;
   align-items: center;
   justify-content: center;
   scroll-snap-align: center;
 
+  font-size: 34px;            /* ✅ clearer */
   font-weight: 700;
-  font-size: 30px;
-  letter-spacing: 0.3px;
 
-  color: rgba(255, 255, 255, 0.35);
-  transform: scale(0.95);
-  transition: transform 160ms ease, opacity 160ms ease, color 160ms ease;
+  color: rgba(255, 255, 255, 0.32);
+  transform: scale(0.96);
+  transition: transform 160ms ease, color 160ms ease, opacity 160ms ease;
   will-change: transform;
 }
 
-/* ✅ IMPORTANT: do NOT change font-size/margin here (breaks wheel).
-   Use scale to get big number like image. */
 .itemActive {
   color: rgba(255, 255, 255, 1);
-  transform: scale(1.25);
-  font-weight: 800;
+  transform: scale(1.28);     /* ✅ big center number */
+  font-weight: 850;
 }
 
 .itemEmpty {
   opacity: 0;
 }
 
+/* fades */
 .fadeTop,
 .fadeBottom {
   position: absolute;
   left: 0;
   right: 0;
-  height: 120px;
+  height: 140px;
   z-index: 2;
   pointer-events: none;
 }
@@ -114,9 +179,9 @@
   top: 0;
   background: linear-gradient(
     to bottom,
-    rgba(63, 111, 224, 1) 0%,
-    rgba(63, 111, 224, 0.7) 35%,
-    rgba(63, 111, 224, 0) 100%
+    rgba(63, 106, 225, 1) 0%,
+    rgba(63, 106, 225, 0.75) 35%,
+    rgba(63, 106, 225, 0) 100%
   );
 }
 
@@ -124,9 +189,9 @@
   bottom: 0;
   background: linear-gradient(
     to top,
-    rgba(63, 111, 224, 1) 0%,
-    rgba(63, 111, 224, 0.7) 35%,
-    rgba(63, 111, 224, 0) 100%
+    rgba(63, 106, 225, 1) 0%,
+    rgba(63, 106, 225, 0.75) 35%,
+    rgba(63, 106, 225, 0) 100%
   );
 }
 
@@ -134,20 +199,46 @@
   position: absolute;
   left: 6px;
   right: 6px;
-  top: calc(50% - 23px);
-  height: 46px;
-  border-radius: 10px;
+  top: calc(50% - 28px);
+  height: 56px;               /* ✅ must match ITEM_H */
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.06);
   z-index: 1;
   pointer-events: none;
 }
 
-@media (max-width: 991px) {
-  .wheelsRow {
-    grid-template-columns: 1fr;
-    gap: 18px;
+/* responsive */
+@media (max-width: 1100px) {
+  .centerWrap {
+    width: calc(100vw - 32px);
   }
-  .endGhost {
-    display: none;
+
+  .selectedValue,
+  .arrow {
+    font-size: 46px;
+  }
+}
+
+@media (max-width: 900px) {
+  .centerWrap {
+    height: 560px;
+  }
+
+  .wheelsRow {
+    gap: 28px;
+  }
+
+  .group,
+  .groupGhost {
+    grid-template-columns: 96px 96px 86px;
+    gap: 14px;
+  }
+
+  .wheel {
+    width: 96px;
+  }
+
+  .item {
+    font-size: 30px;
   }
 }
